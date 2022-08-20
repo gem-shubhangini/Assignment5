@@ -1,0 +1,16 @@
+
+.flex{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  
+  
+  .invalid {
+    border:1px solid red !important;
+   }
+   input, textarea {
+    outline: none !important;
+    box-shadow: none !important; 
+  }
+  
