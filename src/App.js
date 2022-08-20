@@ -10,9 +10,8 @@ function App() {
   
   <BrowserRouter>
       <Routes>
-        <Route path="/users/view" element={<TableData/>}>
-          <Route index path="/users/create" element={<UserForm />} />
-          <Route path="*" element={<NoPage />} />
+        <Route path="/Assignment5/users/view" element={<TableData/>}>
+        <Route index  element={<UserForm />} />
         </Route>
       </Routes>
     </BrowserRouter>
