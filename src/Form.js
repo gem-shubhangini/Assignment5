@@ -1,13 +1,19 @@
 import React from "react";
 import props from 'prop-types';
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import Modal from 'react-bootstrap/Modal';
 import './Form.css';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
+
+
+
+
 export const UserForm = () => {
-  const [show, setShow] = useState(false);
+ 
+  const [Show, setShow] = useState(false);
   const [Save,setSave]=useState(false)
+  const [Data,setData]=useState([]);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -29,11 +35,17 @@ export const UserForm = () => {
   const Technology =watch("chooseCb");
   const Picture =watch("files");
   const onSubmit = (data) => {
-       console.log("hi i am called");
+       setData(data);
   };
  
   const handlecreate=()=>{
        setSave(true);
+       if(Save){
+            console.log('data',Data)
+       }
+       else{
+
+       }
        handleClose();
   }
 
@@ -47,6 +59,7 @@ export const UserForm = () => {
     }
   }
   const handlereset=()=>{
+      setData([]);
        reset();
        handleClose();
   }
@@ -279,7 +292,7 @@ export const UserForm = () => {
           <Button variant="primary" type="submit" onClick={handlePreview}>
        Preview
       </Button>
-          <Modal show={show} onHide={handleClose}>
+          <Modal show={Show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>User details</Modal.Title>
         </Modal.Header>
@@ -293,10 +306,10 @@ export const UserForm = () => {
           <p>{Picture}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handlecreate}>
+          <Button variant="secondary" onClick={handlereset}>
             Reset
           </Button>
-          <Button variant="primary" type="submit" onClick={()=>setSave(true)}>
+          <Button variant="primary"  onClick={handlecreate}>
             Create
           </Button>
         </Modal.Footer>
