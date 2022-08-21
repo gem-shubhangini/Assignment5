@@ -9,7 +9,7 @@ export const UserModule = () => {
     <Routes>
     <Route path="/Assignment5/user/create" element={<UserForm />} />
     <Route path="/Assignment5" element={<Navigate replace to="/Assignment5/user/create" />} />
-  <Route path="/Assignment5/users/view" element={<TableData/>}/>
+    <Route path="/Assignment5/users/view" element={<TableData/>}/>
   </Routes>
   </Suspense>
   )

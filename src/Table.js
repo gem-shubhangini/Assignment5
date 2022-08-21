@@ -1,51 +1,40 @@
 import React, { useState } from 'react';
 import UserForm from './Form';
-import jsonData from './data.json';
-  
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 function TableData() {
-  const [UserData, setUserData] = useState(jsonData);
-  
-  const tableRows = UserData.map((info) => {
-    return (
-      <tr key={info.id} >
-        <td>{info.id}</td>
-        <td>{info.Name}</td>
-        <td>{info.Email}</td>
-        <td>{info.Phone}</td>
-        <td>{info.Gender}</td>
-        <td>{info.Category}</td>
-        <td>{info.Technology}</td>
-        <td>{info.Picture}</td>
-      </tr>
-    );
-  });
-  
-  const addRows = (data) => {
-    const totalUsers = UserData.length;
-    data.id = totalUsers + 1;
-    const updatedUserData = [...UserData];
-    updatedUserData.push(data);
-    setUserData(updatedUserData);
-  };
-  
+
+  const UserData = useSelector((state)=>state.UserData);
   return (
     <div>
       <table className="table table-stripped">
         <thead>
-          <tr>
-            
+          <tr>           
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
             <th>Gender</th>
             <th>Category</th>
             <th>Technology</th>
-            <th>Picture</th>
+           
           </tr>
-        </thead>
-        <tbody>{tableRows}</tbody>
+          </thead>
+          <tbody>
+          {
+            UserData.map((item)=> <tr key={item.id}>
+              <td>{item.name}</td>
+            <td>{item.email}</td>
+            <td>{item.phone}</td>
+            <td>{item.gender}</td>
+            <td> {item.category.map((cb)=><p key={cb}>{cb}</p>)}</td>
+             <td>{item.chooseCb}</td>
+             
+            </tr>
+            ) 
+          }
+          </tbody>
+       
       </table>
-      <UserForm func={addRows} />
     </div>
   );
 }
