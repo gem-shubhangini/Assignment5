@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
 export const UserForm = () => {
   const [show, setShow] = useState(false);
-
+  const [Save,setSave]=useState(false)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -29,11 +29,23 @@ export const UserForm = () => {
   const Technology =watch("chooseCb");
   const Picture =watch("files");
   const onSubmit = (data) => {
-       console.log(data);
-      reset();
-     
+       console.log("hi i am called");
   };
  
+  const handlecreate=()=>{
+       setSave(true);
+       handleClose();
+  }
+
+
+
+  const handlePreview=()=>{
+    console.log("length: ",Object.keys(errors).length)
+    if(Object.keys(errors).length===0){
+      onSubmit();
+    handleShow();
+    }
+  }
   const handlereset=()=>{
        reset();
        handleClose();
@@ -50,7 +62,10 @@ export const UserForm = () => {
             <input
               {...register("name", {
                 required: "Name is Required",
-
+                pattern: {
+                  value: /^[a-zA-Z]+(\s[a-zA-Z]+)?$/,
+                  message: "Only letters and space are allowed",
+                },
                 min: {
                   value: 2,
                   message: "Minimum length should be 2",
@@ -58,11 +73,7 @@ export const UserForm = () => {
                 max: {
                   value: 30,
                   message: "Maximum length should be 30",
-                },
-                pattern: {
-                  value: /^[a-zA-Z]+(\s[a-zA-Z]+)?$/,
-                  message: "Only letters and space are allowed",
-                },
+                }
               })}
               onKeyUp={() => {
                 trigger("name");
@@ -265,7 +276,7 @@ export const UserForm = () => {
               accept=".jpeg, .png, .jpg"
             ></input>
           </div>
-          <Button variant="primary" onClick={handleShow}>
+          <Button variant="primary" type="submit" onClick={handlePreview}>
        Preview
       </Button>
           <Modal show={show} onHide={handleClose}>
@@ -282,10 +293,10 @@ export const UserForm = () => {
           <p>{Picture}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handlereset}>
+          <Button variant="secondary" onClick={handlecreate}>
             Reset
           </Button>
-          <Button variant="primary" type="submit" onClick={onSubmit}>
+          <Button variant="primary" type="submit" onClick={()=>setSave(true)}>
             Create
           </Button>
         </Modal.Footer>
