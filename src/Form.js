@@ -36,8 +36,8 @@ export const UserForm = () => {
     reader.onloadend=()=>{
       setImages(reader.result.toString());
     };
-    if(file.Picture[0]){
-      reader.readAsDataURL(file.Picture[0]);
+    if(file){
+      reader.readAsDataURL(file);
     }
     
   }
@@ -50,10 +50,10 @@ export const UserForm = () => {
   const Picture = watch("Picture");
   const onSubmit = (data) => {
      console.warn('data in picture')
-    
-    convert2base64(data);
-    
-    setData(JSON.stringify(data));
+    if(data.Picture.length>0){
+    convert2base64(data.Picture[0]);
+    }
+    setData(data);
     
   };
 
